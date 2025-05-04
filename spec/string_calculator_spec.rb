@@ -67,7 +67,7 @@ RSpec.describe StringCalculator do
         expect(calculator.count).to eq(3)
 
         calc = StringCalculator.new
-        5.times { calc.add() }
+        5.times { calc.add("") }
         expect(calc.count).to eq(5)
       end
     end

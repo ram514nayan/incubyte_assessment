@@ -1,5 +1,12 @@
 class StringCalculator
+  attr_accessor :count
+  
+  def initialize
+    @count = 0
+  end
+  
   def add input_str
+    @count += 1
     return 0 if input_str.empty?
 
     input, delimiter = delimitere_used(input_str)
