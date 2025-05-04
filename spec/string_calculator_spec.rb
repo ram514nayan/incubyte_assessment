@@ -59,5 +59,17 @@ RSpec.describe StringCalculator do
       end
     end
     
+    context 'when add method called' do
+      it 'should return number of times add method being called' do
+        calculator.add("")
+        calculator.add("4,5")
+        calculator.add("//;\n10;20;30")
+        expect(calculator.count).to eq(3)
+
+        calc = StringCalculator.new
+        5.times { calc.add() }
+        expect(calc.count).to eq(5)
+      end
+    end
   end
 end
