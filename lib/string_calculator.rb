@@ -14,7 +14,7 @@ class StringCalculator
     validate_string(input, regex_str)
     numbers = input.split(delimiter).map(&:to_i)
     negative_numbers(numbers)
-    numbers.sum
+    numbers.select { |n| n <= 1000  }.sum
   end
 
   def negative_numbers(numbers)
