@@ -49,5 +49,15 @@ RSpec.describe StringCalculator do
         negative_numbers('10,-20,30,-40,50')
       end
     end
+
+    context 'when the input contains a custom delimiter' do
+      it 'returns the sum of the numbers' do
+        expect(calculator.add("//;\n1;2")).to eq(3)
+        expect(calculator.add("//|\n4|5|6")).to eq(15)
+        expect(calculator.add("//,\n7,8,9")).to eq(24)
+        expect(calculator.add("//;\n10;20;30")).to eq(60)
+      end
+    end
+    
   end
 end
