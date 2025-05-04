@@ -4,6 +4,10 @@ RSpec.describe StringCalculator do
   describe '#add' do
     let(:calculator) { StringCalculator.new }
 
+    def negative_numbers input
+      expect { calculator.add(input) }.to raise_error(ArgumentError, "Negative numbers not allowed: #{input.split(',').map(&:to_i).select(&:negative?).join(', ')}")
+    end
+
     context 'handle for empty string' do
       it 'returns 0' do
         expect(calculator.add('')).to eq(0)
@@ -40,9 +44,9 @@ RSpec.describe StringCalculator do
 
     context 'when the input contains negative numbers' do
       it 'raises an exception' do
-        expect { calculator.add('1,-2,3') }.to raise_error(ArgumentError, 'Negative numbers not allowed: -2')
-        expect { calculator.add('-1,-2,-3') }.to raise_error(ArgumentError, 'Negative numbers not allowed: -1, -2, -3')
-        expect { calculator.add('10,-20,30,-40,50') }.to raise_error(ArgumentError, 'Negative numbers not allowed: -20, -40')
+        negative_numbers('1,-2,3')
+        negative_numbers('-1,-2,-3')
+        negative_numbers('10,-20,30,-40,50')
       end
     end
   end
