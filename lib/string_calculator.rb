@@ -4,21 +4,21 @@ class StringCalculator
   def initialize
     @count = 0
   end
-  
+
   def add input_str
     @count += 1
     return 0 if input_str.empty?
 
-    input, delimiter = delimitere_used(input_str)
-    regex_str = /^[\d\(\)\-#{delimiter}]+$/
-
-    validate_string(input, regex_str)
-
-    numbers = input.split(delimiter).map(&:to_i)
-
-    negative_numbers(numbers)
-
-    numbers.sum
+    begin
+      input, delimiter = delimitere_used(input_str)
+      regex_str = /^[\d\(\)\-#{delimiter}]+$/
+      validate_string(input, regex_str)
+      numbers = input.split(delimiter).map(&:to_i)
+      negative_numbers(numbers)
+      numbers.sum
+    rescue ArgumentError => e
+      error = e.message
+    end
   end
 
   def negative_numbers(numbers)
@@ -39,7 +39,7 @@ class StringCalculator
   end
 
   def validate_delimiter(del)
-    raise(ArgumentError, "Invalid input: Delimiter should not be number, ") unless del.to_s.match? /^(?![0-9]+$).*/
+    raise(ArgumentError, "Invalid input: Delimiter should not be number, #{del}") unless del.to_s.match? /^(?![0-9]+$).*/
   end
 
   def validate_string input, regex_str
@@ -49,12 +49,3 @@ class StringCalculator
   end
 
 end
-
-
-
-# inputs = ["", "1", "1,2", "1,2,3,4", "//@10@15@7", "//A10A15A7A14", "//???10???15???7??14"]
-# calculator = StringCalculator.new
-# inputs.each do |input|
-#   result = calculator.add(input)
-#   puts "Input: #{input.inspect} Output: #{result}"
-# end
