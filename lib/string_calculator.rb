@@ -9,16 +9,12 @@ class StringCalculator
     @count += 1
     return 0 if input_str.empty?
 
-    begin
-      input, delimiter = delimitere_used(input_str)
-      regex_str = /^[\d\(\)\-#{delimiter}]+$/
-      validate_string(input, regex_str)
-      numbers = input.split(delimiter).map(&:to_i)
-      negative_numbers(numbers)
-      numbers.sum
-    rescue ArgumentError => e
-      error = e.message
-    end
+    input, delimiter = delimitere_used(input_str)
+    regex_str = /^[\d\(\)\-#{delimiter}]+$/
+    validate_string(input, regex_str)
+    numbers = input.split(delimiter).map(&:to_i)
+    negative_numbers(numbers)
+    numbers.sum
   end
 
   def negative_numbers(numbers)
